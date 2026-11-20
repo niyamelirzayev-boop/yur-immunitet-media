@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><link rel="stylesheet" href="brand.css">
+<style>
+.cover{width:1280px;height:720px;padding:64px 80px;justify-content:space-between}
+.big{font:900 230px/1 Unbounded;letter-spacing:-.04em;display:flex;align-items:center;gap:40px}
+.big s{text-decoration-color:var(--accent);text-decoration-thickness:16px;opacity:.55}
+.arrow{font:800 120px Manrope;color:var(--acid)}
+</style></head><body>
+<section class="s dark cover" id="s1">
+ <div class="top"><div class="brand" data-logo>Юридический иммунитет</div><span class="tag y" style="font-size:24px;padding:10px 18px">УСН · 2027</span></div>
+ <div class="big"><s>1%</s><span class="arrow">→</span><span class="accent">6%</span></div>
+ <p style="font:700 40px/1.3 Manrope;max-width:660px">Льготные ставки УСН остаются только для производства и сельского хозяйства</p>
+ <div class="stamp st-red" style="right:70px;bottom:60px;font-size:64px">Проект</div>
+</section>
+<script>
+const t='<svg class="shield" viewBox="0 0 34 40"><path d="M17 1 32 7v12c0 10-6.5 17-15 20C8.5 36 2 29 2 19V7z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 20l5 5 9-10" fill="none" stroke="#E8452C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+document.querySelectorAll('[data-logo]').forEach(e=>e.insertAdjacentHTML('afterbegin',t));
+</script>
+</body></html>
