@@ -1,0 +1,181 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@500;700;800&family=Caveat:wght@600;700&family=PT+Serif:wght@400;700&family=PT+Mono&family=Rubik+Mono+One&family=Oswald:wght@600&family=Russo+One&display=swap">
+<style>
+:root{--ink:#0F1B2D;--paper:#F3EFE6;--accent:#E8452C;--acid:#FFE14D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0A1220;width:1960px;padding:60px 70px;font-family:Manrope;color:var(--paper)}
+h1{font:900 52px Unbounded;margin-bottom:10px}h1 span{color:var(--acid)}
+.lead{font:600 24px Manrope;opacity:.7;margin-bottom:40px}
+.g{display:grid;grid-template-columns:repeat(3,540px);gap:40px 50px}
+.fr{width:540px;height:960px;border-radius:30px;overflow:hidden;position:relative}
+.lab{margin-top:18px}
+.lab .n{font:900 30px Unbounded;color:var(--acid)}
+.lab .n i{font-style:normal;color:var(--paper);opacity:.5;margin-right:10px}
+.lab p{font:600 20px/1.45 Manrope;opacity:.85;margin-top:8px}
+.lab .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.lab .tags b{font:800 15px Manrope;background:rgba(255,255,255,.08);padding:6px 10px;border-radius:6px;letter-spacing:.03em}
+.logo{position:absolute;top:26px;left:26px;font:800 15px Manrope;letter-spacing:.1em;text-transform:uppercase;z-index:5}
+.stamp{position:absolute;font:900 54px/1 Unbounded;color:var(--accent);border:8px solid var(--accent);border-radius:14px;padding:14px 22px;transform:rotate(-13deg);z-index:6;
+ -webkit-mask-image:radial-gradient(circle at 30% 40%,#000 60%,rgba(0,0,0,.75) 61%,#000 70%)}
+.stamp small{display:block;font:800 16px Manrope;letter-spacing:.12em;margin-top:6px;text-align:center}
+.subt{position:absolute;left:30px;right:30px;bottom:70px;text-align:center;font:800 30px/1.25 Manrope;color:#fff;background:rgba(15,27,45,.85);border-radius:12px;padding:12px}
+.subt em{font-style:normal;color:var(--acid)}
+
+/* A — документ */
+.A{background:var(--ink)}
+.A .cap{position:absolute;top:90px;left:36px;right:36px;font:900 58px/1.05 Unbounded;color:#fff}
+.A .cap u{text-decoration:none;background:var(--acid);color:var(--ink);padding:0 8px}
+.A .doc{position:absolute;left:44px;right:44px;top:330px;background:#fbfaf6;color:#222;padding:30px 30px 40px;transform:rotate(-2.5deg);box-shadow:0 20px 40px rgba(0,0,0,.5);font:400 19px/1.55 "PT Serif"}
+.A .doc h4{font:700 20px "PT Serif";margin-bottom:10px}
+.A .doc .mk{background:linear-gradient(transparent 15%,rgba(255,225,77,.95) 15%,rgba(255,225,77,.95) 85%,transparent 85%);font-weight:700;position:relative}
+.A .doc .mk::after{content:"";position:absolute;left:-14px;right:-14px;top:-12px;bottom:-12px;border:4px solid var(--accent);border-radius:50%;transform:rotate(-3deg)}
+.A .doc .gr{color:#999}
+.A .stamp{right:34px;top:640px;background:rgba(251,250,246,.85)}
+
+/* B — газетные вырезки */
+.B{background:#e9e2d2;background-image:radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);background-size:6px 6px}
+.B .ransom{position:absolute;top:120px;left:30px;right:30px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.B .ransom span{display:inline-block;padding:6px 12px;box-shadow:3px 3px 0 rgba(0,0,0,.25)}
+.B .hd{position:absolute;left:40px;right:60px;top:430px;background:#fff;padding:22px 24px;transform:rotate(2deg);box-shadow:6px 6px 0 rgba(0,0,0,.2);font:700 34px/1.12 "PT Serif";color:#111}
+.B .hd small{display:block;font:400 15px "PT Serif";color:#666;margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em}
+.B .tape{position:absolute;width:120px;height:34px;background:rgba(255,225,77,.75);transform:rotate(-8deg)}
+.B .ph{position:absolute;left:70px;top:640px;width:200px;height:150px;background:#ddd;border:10px solid #fff;transform:rotate(-6deg);box-shadow:5px 5px 0 rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font:700 70px Unbounded;color:var(--accent)}
+.B .stamp{right:40px;top:600px}
+
+/* C — щит-герой */
+.C{background:var(--acid)}
+.C .cap{position:absolute;top:90px;left:30px;right:30px;text-align:center;font:900 54px/1.05 Unbounded;color:var(--ink)}
+.C svg{position:absolute;left:50%;top:300px;transform:translateX(-50%)}
+.C .subt{bottom:60px}
+
+/* D — маркер */
+.D{background:#fff;background-image:linear-gradient(#d9e4f2 1px,transparent 1px),linear-gradient(90deg,#d9e4f2 1px,transparent 1px);background-size:36px 36px}
+.D .cap{position:absolute;top:70px;left:30px;right:30px;text-align:center;font:700 74px/1 Caveat;color:#1a1a1a}
+.D svg{position:absolute;left:0;top:0}
+.D .hand{font:700 50px Caveat;fill:#1a1a1a}
+
+/* E — переписка */
+.E{background:#e7ebe3}
+.E .top{position:absolute;top:0;left:0;right:0;height:120px;background:var(--ink);display:flex;align-items:flex-end;padding:0 24px 18px;gap:14px}
+.E .av{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font:800 30px "PT Serif";color:#fff}
+.E .who b{display:block;font:800 22px Manrope;color:#fff}.E .who span{font:600 15px Manrope;color:var(--acid)}
+.E .chat{position:absolute;top:150px;left:20px;right:20px;display:flex;flex-direction:column;gap:14px}
+.E .m{max-width:78%;padding:14px 18px;border-radius:20px;font:600 24px/1.35 Manrope;color:#111;background:#fff;box-shadow:0 2px 0 rgba(0,0,0,.08);position:relative}
+.E .m small{display:block;text-align:right;font:600 13px Manrope;color:#999;margin-top:4px}
+.E .me{align-self:flex-end;background:#d9f7c6}
+.E .m s{color:#999}.E .m b{color:var(--accent)}
+.E .stamp{right:24px;bottom:30px;font-size:44px;background:rgba(231,235,227,.9)}
+
+/* F — цифра-удар */
+.F{background:var(--accent);color:#fff}
+.F .k{position:absolute;top:70px;left:36px;font:800 26px Manrope;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--acid);padding:10px 16px;border-radius:6px}
+.F .big{position:absolute;top:170px;left:0;right:0;text-align:center;font:900 300px/1 Unbounded;letter-spacing:-.05em;color:var(--acid);text-shadow:10px 10px 0 var(--ink)}
+.F .t{position:absolute;top:500px;left:36px;right:36px;font:900 46px/1.1 Unbounded}
+.F .t s{opacity:.6;text-decoration-thickness:6px}
+.F .pain{position:absolute;left:36px;top:690px;font:800 22px Manrope;letter-spacing:.06em;text-transform:uppercase}
+.F .bars{display:flex;gap:10px;margin-top:12px}.F .bars i{width:78px;height:30px;border-radius:6px;background:var(--acid)}.F .bars i.o{background:rgba(255,255,255,.25)}
+.F .stamp{right:28px;top:60px;color:#fff;border-color:#fff;font-size:44px}
+</style></head><body>
+<h1>Стили роликов · <span>одна тема, 6 подач</span></h1>
+<div class="lead">Всё нарисовано в коде, без генераторов картинок. Это первый кадр каждого ролика (хук).</div>
+<div class="g">
+
+<!-- A -->
+<div><div class="fr A">
+ <div class="logo" style="color:var(--paper)">🛡 Юридический иммунитет</div>
+ <div class="cap">Платил <u>1%</u>?<br>Будешь <u>6%</u></div>
+ <div class="doc"><h4>Статья 346.20. Налоговые ставки</h4>
+ <span class="gr">1. В случае, если объектом налогообложения являются доходы, налоговая ставка устанавливается в размере</span> <span class="mk">6 процентов</span><span class="gr">, если иное не установлено…</span><br><br>
+ <span class="gr">Законами субъектов Российской Федерации могут быть установлены налоговые ставки в пределах от 1 до 6 процентов…</span></div>
+ <div class="stamp">ПРОЕКТ<small>ГОСДУМА</small></div>
+ <div class="subt">региональные льготы <em>хотят урезать</em></div>
+</div><div class="lab"><div class="n"><i>A</i>Документ + маркер</div><p>Настоящий текст закона, выделение жёлтым маркером, красный кружок, наш штамп. Камера «наезжает» на строчки.</p><div class="tags"><b>⚡ делаю сам каждый день</b><b>доверие</b><b>как «Право на пальцах»</b></div></div></div>
+
+<!-- B -->
+<div><div class="fr B">
+ <div class="ransom">
+  <span style="background:var(--ink);color:var(--acid);font:900 64px Unbounded;transform:rotate(-4deg)">1%</span>
+  <span style="background:#fff;color:#111;font:700 64px 'PT Serif';transform:rotate(3deg)">→</span>
+  <span style="background:var(--accent);color:#fff;font:400 74px 'Rubik Mono One';transform:rotate(-2deg)">6%</span>
+  <span style="background:#fff;color:#111;font:600 44px Oswald;transform:rotate(2deg)">ДЛЯ</span>
+  <span style="background:var(--acid);color:#111;font:400 44px 'Russo One';transform:rotate(-3deg)">ИП</span>
+ </div>
+ <div class="tape" style="left:60px;top:410px"></div><div class="tape" style="right:70px;top:415px;transform:rotate(9deg)"></div>
+ <div class="hd"><small>Деловые новости · ноябрь</small>Налог для части ИП на УСН может вырасти в шесть раз</div>
+ <div class="ph">×6</div>
+ <div class="stamp">ПРОЕКТ<small>ГОСДУМА</small></div>
+ <div class="subt" style="bottom:50px">вырезаем новости <em>и проверяем</em></div>
+</div><div class="lab"><div class="n"><i>B</i>Газетные вырезки</div><p>Коллаж из вырезок, скотч, буквы как в анонимке. Каждое слово «прилетает» со звуком бумаги. Хорошо подходит к рубрике «Слух недели».</p><div class="tags"><b>⚡ делаю сам</b><b>живо, «руками»</b><b>для слухов</b></div></div></div>
+
+<!-- C -->
+<div><div class="fr C">
+ <div class="logo" style="color:var(--ink)">🛡 Юридический иммунитет</div>
+ <div class="cap">УСН: было 1%,<br>станет 6%</div>
+ <svg width="380" height="470" viewBox="0 0 380 470">
+  <ellipse cx="190" cy="452" rx="120" ry="14" fill="rgba(15,27,45,.18)"/>
+  <rect x="140" y="370" width="16" height="70" rx="8" fill="#0F1B2D"/><rect x="224" y="370" width="16" height="70" rx="8" fill="#0F1B2D"/>
+  <rect x="122" y="430" width="44" height="18" rx="9" fill="#0F1B2D"/><rect x="214" y="430" width="44" height="18" rx="9" fill="#0F1B2D"/>
+  <path d="M190 20 L330 70 V200 C330 300 260 360 190 395 C120 360 50 300 50 200 V70 Z" fill="#0F1B2D"/>
+  <path d="M190 48 L304 88 V200 C304 285 248 335 190 365 C132 335 76 285 76 200 V88 Z" fill="#E8452C"/>
+  <ellipse cx="148" cy="180" rx="34" ry="40" fill="#fff"/><ellipse cx="232" cy="180" rx="34" ry="40" fill="#fff"/>
+  <circle cx="154" cy="192" r="15" fill="#0F1B2D"/><circle cx="226" cy="192" r="15" fill="#0F1B2D"/>
+  <path d="M108 128 L180 146" stroke="#0F1B2D" stroke-width="12" stroke-linecap="round"/><path d="M272 128 L200 146" stroke="#0F1B2D" stroke-width="12" stroke-linecap="round"/>
+  <ellipse cx="190" cy="282" rx="34" ry="26" fill="#0F1B2D"/>
+  <path d="M300 120 q14 22 0 34 q-14 -12 0 -34z" fill="#7fd0ff"/>
+  <path d="M52 230 C10 220 0 170 20 150" stroke="#0F1B2D" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <g transform="translate(46,10) rotate(-10 20 120)"><rect x="-30" y="60" width="110" height="80" rx="10" fill="#fff" stroke="#0F1B2D" stroke-width="6"/><text x="25" y="118" text-anchor="middle" font-family="Unbounded" font-weight="900" font-size="44" fill="#E8452C">6%</text></g>
+ </svg>
+ <div class="subt">щит в шоке. <em>и мы тоже</em></div>
+</div><div class="lab"><div class="n"><i>C</i>Герой-щит из логотипа</div><p>Наш щит с глазами, плоский векторный стиль без ИИ. Минимум деталей, эмоции читаются бровями. Анимирую в коде.</p><div class="tags"><b>⚡ делаю сам</b><b>свой маскот</b><b>узнаваемо</b></div></div></div>
+
+<!-- D -->
+<div><div class="fr D">
+ <svg width="540" height="960" viewBox="0 0 540 960">
+  <defs><filter id="wob"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter></defs>
+  <g filter="url(#wob)" stroke="#1a1a1a" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <text x="270" y="140" text-anchor="middle" class="hand" style="font-size:78px" stroke="none" fill="#1a1a1a">ИП на УСН</text>
+   <text x="110" y="290" text-anchor="middle" class="hand" style="font-size:110px" stroke="none" fill="#1a1a1a">1%</text>
+   <path d="M190 260 C250 230 310 230 360 255" /><path d="M340 232 L362 256 L334 270"/>
+   <text x="440" y="300" text-anchor="middle" class="hand" style="font-size:130px" stroke="none" fill="#E8452C">6%</text>
+   <ellipse cx="440" cy="262" rx="95" ry="72" stroke="#E8452C" stroke-width="6" transform="rotate(-8 440 262)"/>
+   <circle cx="200" cy="470" r="44"/><path d="M180 462 l8 0 M212 462 l8 0"/><path d="M182 498 q18 -14 36 0"/>
+   <path d="M225 445 q6 -14 0 -22" stroke="#4aa3ff"/>
+   <path d="M200 514 L200 660"/><path d="M200 560 L140 520 M200 560 L270 600"/><path d="M200 660 L160 760 M200 660 L245 760"/>
+   <rect x="262" y="580" width="110" height="80" rx="6" transform="rotate(10 317 620)"/>
+   <path d="M282 610 l70 10 M280 630 l60 9" stroke-width="5" transform="rotate(10 317 620)"/>
+   <text x="390" y="470" class="hand" style="font-size:44px" stroke="none" fill="#1a1a1a">это я,</text>
+   <text x="380" y="515" class="hand" style="font-size:44px" stroke="none" fill="#1a1a1a">читаю</text>
+   <text x="378" y="560" class="hand" style="font-size:44px" stroke="none" fill="#1a1a1a">новости</text>
+   <path d="M370 525 C340 525 300 500 260 470" stroke-width="4"/>
+  </g>
+ </svg>
+ <div class="stamp" style="right:30px;top:690px;font-size:44px">ПРОЕКТ<small>ГОСДУМА</small></div>
+ <div class="subt" style="bottom:40px;font-size:26px">рисуем <em>как на салфетке</em></div>
+</div><div class="lab"><div class="n"><i>D</i>Маркер на листе</div><p>Как будто объясняют на бумаге в клетку: человечки, стрелки, обведённые цифры. Линии «дрожат», как от руки. Можно и правда рисовать маркером на камеру.</p><div class="tags"><b>⚡ делаю сам</b><b>просто и честно</b><b>объясняшки</b></div></div></div>
+
+<!-- E -->
+<div><div class="fr E">
+ <div class="top"><div class="av">§</div><div class="who"><b>Закон</b><span>был(а) в Госдуме недавно</span></div></div>
+ <div class="chat">
+  <div class="m">Привет, ИП 👋<small>09:41</small></div>
+  <div class="m">С 2027-го льготную УСН хотят урезать. Было <s>1%</s> — будет <b>6%</b><small>09:41</small></div>
+  <div class="m me">в смысле 6?? это шутка?<small>09:42 ✓✓</small></div>
+  <div class="m">Шутки у меня в КоАП 🙂<small>09:42</small></div>
+  <div class="m me">а это уже точно?<small>09:43 ✓✓</small></div>
+  <div class="m">Пока проект. Но я бы считал заранее<small>09:43</small></div>
+ </div>
+ <div class="stamp">ПРОЕКТ</div>
+</div><div class="lab"><div class="n"><i>E</i>Переписка с Законом</div><p>Сторис-формат «чат»: сообщения появляются по одному со звуком. Закон — саркастичный собеседник, зритель — ИП. Такие ролики дочитывают до конца.</p><div class="tags"><b>⚡ делаю сам</b><b>высокий досмотр</b><b>диалоги</b></div></div></div>
+
+<!-- F -->
+<div><div class="fr F">
+ <div class="k">УСН · 2027</div>
+ <div class="big">×6</div>
+ <div class="t">налог для части ИП:<br><s>1%</s> → 6%</div>
+ <div class="pain">Индекс боли<div class="bars"><i></i><i></i><i></i><i></i><i class="o"></i></div></div>
+ <div class="stamp">ПРОЕКТ<small>ГОСДУМА</small></div>
+ <div class="subt" style="bottom:50px">одна цифра — <em>и всё понятно</em></div>
+</div><div class="lab"><div class="n"><i>F</i>Цифра-удар</div><p>Брутальный минимализм: огромная цифра, фирменные цвета, индекс боли, штамп. Цифры «щёлкают», фон мигает. Самый быстрый в производстве.</p><div class="tags"><b>⚡ делаю сам</b><b>хук за 1 сек</b><b>фирменный стиль</b></div></div></div>
+
+</div>
+</body></html>
