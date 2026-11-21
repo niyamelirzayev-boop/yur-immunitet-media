@@ -1,0 +1,255 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Manrope:wght@600;700;800&family=Caveat:wght@600;700&family=PT+Serif:wght@400;700&family=Rubik+Mono+One&family=Oswald:wght@600&family=Russo+One&display=swap">
+<style>
+:root{--ink:#0F1B2D;--paper:#F3EFE6;--accent:#E8452C;--acid:#FFE14D}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#v{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Manrope}
+.sc{position:absolute;inset:0;display:none;overflow:hidden}
+/* общие анимации (задержки ставит JS по data-at) */
+.a{animation-fill-mode:both;animation-timing-function:cubic-bezier(.2,.9,.3,1.2)}
+.pop{animation-name:pop;animation-duration:.45s}
+@keyframes pop{0%{transform:scale(0) rotate(var(--r,0deg));opacity:0}70%{transform:scale(1.12) rotate(var(--r,0deg));opacity:1}100%{transform:scale(1) rotate(var(--r,0deg));opacity:1}}
+.slam{animation-name:slam;animation-duration:.35s;animation-timing-function:ease-in}
+@keyframes slam{0%{transform:scale(3.2) rotate(var(--r,-13deg));opacity:0}100%{transform:scale(1) rotate(var(--r,-13deg));opacity:1}}
+.up{animation-name:up;animation-duration:.5s}
+@keyframes up{0%{transform:translateY(120px) rotate(var(--r,0deg));opacity:0}100%{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+.left{animation-name:left;animation-duration:.55s}
+@keyframes left{0%{transform:translateX(-1100px) rotate(var(--r,0deg))}100%{transform:translateX(0) rotate(var(--r,0deg))}}
+.fade{animation-name:fade;animation-duration:.5s;animation-timing-function:ease}
+@keyframes fade{0%{opacity:0}100%{opacity:1}}
+.write{animation-name:write;animation-duration:var(--d,.9s);animation-timing-function:linear}
+@keyframes write{0%{clip-path:inset(-20% 100% -20% -5%)}100%{clip-path:inset(-20% -5% -20% -5%)}}
+.draw{stroke-dasharray:var(--len,1500);animation-name:draw;animation-duration:var(--d,.8s);animation-timing-function:ease-out}
+@keyframes draw{0%{stroke-dashoffset:var(--len,1500)}100%{stroke-dashoffset:0}}
+.hlx{animation-name:hlx;animation-duration:.6s;animation-timing-function:ease-out}
+@keyframes hlx{0%{background-size:0% 100%}100%{background-size:100% 100%}}
+.shake{animation-name:shake;animation-duration:.5s;animation-timing-function:linear}
+@keyframes shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-14px,8px)}40%{transform:translate(12px,-10px)}60%{transform:translate(-8px,6px)}80%{transform:translate(6px,-4px)}}
+.zoomslow{animation-name:zs;animation-duration:12s;animation-timing-function:linear}
+@keyframes zs{0%{transform:scale(1)}100%{transform:scale(1.12)}}
+.blink{animation-name:blink;animation-duration:1.2s;animation-iteration-count:6;animation-timing-function:steps(2)}
+@keyframes blink{0%{opacity:1}50%{opacity:.25}}
+
+/* шапка и субтитры */
+#prog{position:absolute;top:28px;left:40px;right:40px;height:10px;border-radius:5px;background:rgba(255,255,255,.35);z-index:50;overflow:hidden}
+#prog i{display:block;height:100%;width:0;background:var(--acid)}
+#logo{position:absolute;top:60px;left:44px;z-index:50;font:800 26px Manrope;letter-spacing:.1em;text-transform:uppercase;background:rgba(15,27,45,.88);color:var(--paper);padding:10px 16px;border-radius:10px}
+#sub{position:absolute;left:60px;right:60px;bottom:200px;z-index:50;text-align:center}
+#sub span{display:inline;font:800 54px/1.3 Manrope;color:#fff;background:rgba(15,27,45,.9);padding:6px 16px;border-radius:14px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#sub b{color:var(--acid)}
+.stamp{position:absolute;font:900 96px/1 Unbounded;color:var(--accent);border:14px solid var(--accent);border-radius:24px;padding:22px 36px;--r:-13deg;z-index:20;
+ -webkit-mask-image:radial-gradient(circle at 30% 40%,#000 60%,rgba(0,0,0,.75) 61%,#000 70%)}
+.stamp small{display:block;font:800 28px Manrope;letter-spacing:.12em;margin-top:10px;text-align:center}
+
+/* F — цифра-удар */
+#F{background:var(--accent)}
+#F .k{position:absolute;top:170px;left:60px;font:800 44px Manrope;letter-spacing:.08em;background:var(--ink);color:var(--acid);padding:16px 26px;border-radius:12px}
+#F .big{position:absolute;top:330px;left:0;right:0;text-align:center;font:900 560px/1 Unbounded;letter-spacing:-.06em;color:var(--acid);text-shadow:18px 18px 0 var(--ink)}
+#F .t{position:absolute;top:960px;left:70px;right:70px;font:900 84px/1.08 Unbounded;color:#fff}
+#F .t s{opacity:.55;text-decoration-thickness:10px}
+#F .pain{position:absolute;left:70px;top:1260px;font:800 36px Manrope;letter-spacing:.08em;color:#fff;text-transform:uppercase}
+#F .bars{display:flex;gap:16px;margin-top:18px}#F .bars i{width:140px;height:54px;border-radius:10px;background:var(--acid)}#F .bars i.o{background:rgba(255,255,255,.25)}
+#F .stamp{right:60px;top:200px;color:#fff;border-color:#fff;font-size:80px}
+
+/* D — маркер */
+.D{background:#fff;background-image:linear-gradient(#d4e0f0 2px,transparent 2px),linear-gradient(90deg,#d4e0f0 2px,transparent 2px);background-size:64px 64px}
+.hw{position:absolute;font:700 120px/1 Caveat;color:#1b1b1b;white-space:nowrap}
+.D svg.ink{position:absolute;inset:0;width:1080px;height:1920px;filter:url(#wob)}
+.D svg.ink *{fill:none;stroke:#1b1b1b;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+.D svg.ink .red{stroke:var(--accent)}
+.D svg.ink .blue{stroke:#3d8bff}
+
+/* A — документ */
+#A{background:var(--ink)}
+#A .cap{position:absolute;top:170px;left:60px;right:60px;font:900 92px/1.05 Unbounded;color:#fff}
+#A .cap u{text-decoration:none;color:var(--acid)}
+#A .doc{position:absolute;left:70px;right:70px;top:500px;background:#fbfaf6;color:#222;padding:56px 54px 70px;--r:-2.5deg;transform:rotate(-2.5deg);box-shadow:0 30px 60px rgba(0,0,0,.5);font:400 38px/1.55 "PT Serif"}
+#A .doc h4{font:700 40px "PT Serif";margin-bottom:22px}
+#A .doc .gr{color:#9a9a9a}
+#A .mk{font-weight:700;color:#111;background:linear-gradient(rgba(255,225,77,.95),rgba(255,225,77,.95)) no-repeat left center;background-size:100% 100%;padding:0 4px}
+#A .stamp{right:60px;top:1150px;background:rgba(251,250,246,.9)}
+
+/* E — переписка */
+#E{background:#e7ebe3}
+#E .top{position:absolute;top:0;left:0;right:0;height:260px;background:var(--ink);display:flex;align-items:flex-end;padding:0 46px 34px;gap:26px}
+#E .av{width:110px;height:110px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font:700 62px "PT Serif";color:#fff}
+#E .who b{display:block;font:800 46px Manrope;color:#fff}#E .who span{font:600 30px Manrope;color:var(--acid)}
+#E .chat{position:absolute;top:320px;left:40px;right:40px;display:flex;flex-direction:column;gap:30px}
+#E .m{max-width:80%;padding:26px 34px;border-radius:38px;font:700 50px/1.3 Manrope;color:#111;background:#fff;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+#E .m small{display:block;text-align:right;font:600 24px Manrope;color:#999;margin-top:6px}
+#E .me{align-self:flex-end;background:#d9f7c6;transform-origin:right bottom}
+#E .m b{color:var(--accent)}
+
+/* B — вырезки */
+#B{background:#e9e2d2;background-image:radial-gradient(rgba(0,0,0,.06) 2px,transparent 2px);background-size:12px 12px}
+#B .clip{position:absolute;background:#fff;color:#111;padding:40px 44px;box-shadow:12px 12px 0 rgba(0,0,0,.22);font:700 64px/1.12 "PT Serif"}
+#B .clip small{display:block;font:400 28px "PT Serif";color:#777;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px}
+#B .tape{position:absolute;width:230px;height:66px;background:rgba(255,225,77,.8);z-index:3}
+#B .stamp{color:var(--ink);border-color:var(--ink);font-size:100px}
+#B .ok{background:var(--ink);color:var(--paper)}
+#B .ok small{color:var(--acid)}
+
+/* C — щит */
+#C{background:var(--acid)}
+#C .cap{position:absolute;top:180px;left:60px;right:60px;text-align:center;font:900 110px/1 Unbounded;color:var(--ink)}
+#C svg{position:absolute;left:50%;margin-left:-300px;top:380px}
+#C .li{position:absolute;left:70px;right:70px;background:var(--ink);color:#fff;border-radius:22px;padding:30px 36px;font:800 52px/1.2 Manrope;display:flex;gap:26px;align-items:center}
+#C .li i{font-style:normal;flex:none;width:84px;height:84px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font:900 44px Unbounded}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="wob"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="7"/></filter></defs></svg>
+<div id="v">
+<div id="prog"><i></i></div>
+<div id="logo">🛡 Юридический иммунитет</div>
+<div id="sub"></div>
+
+<!-- 1. F: цифра-удар -->
+<div class="sc" id="F" data-seg="0">
+ <div class="k a fade" data-at="0">УСН · 2027</div>
+ <div class="big a slam" data-at="0.1" style="--r:0deg" data-sfx="thud">×6</div>
+ <div class="t a up" data-at="1.6">для части ИП:<br><s>1%</s> → 6%</div>
+ <div class="pain a fade" data-at="3.4">Индекс боли<div class="bars"><i class="a pop" data-at="3.6"></i><i class="a pop" data-at="3.8"></i><i class="a pop" data-at="4.0"></i><i class="a pop" data-at="4.2"></i><i class="o"></i></div></div>
+ <div class="stamp a slam" data-at="4.9" data-sfx="stamp">ПРОЕКТ<small>2-Е ЧТЕНИЕ</small></div>
+</div>
+
+<!-- 2. D1: маркер — как сейчас -->
+<div class="sc D" id="D1" data-seg="1">
+ <div class="hw a write" data-at="0.1" style="left:90px;top:230px;--d:1s">Сейчас:</div>
+ <div class="hw a write" data-at="1.6" style="left:90px;top:400px;font-size:96px;--d:1.4s">регион сам решает</div>
+ <div class="hw a write" data-at="3.4" style="left:130px;top:700px;font-size:230px;--d:.6s">6%</div>
+ <div class="hw a write" data-at="5.2" style="left:700px;top:700px;font-size:230px;color:#E8452C;--d:.6s">1%</div>
+ <svg class="ink" viewBox="0 0 1080 1920">
+  <path class="a draw" data-at="4.4" style="--len:500;--d:.5s" d="M110 820 L470 760"/>
+  <path class="a draw" data-at="4.7" style="--len:400;--d:.6s" d="M480 850 C540 800 600 800 660 840"/><path class="a draw" data-at="5.0" style="--len:120;--d:.2s" d="M630 800 L664 842 L615 860"/>
+  <ellipse class="a draw red" data-at="5.9" style="--len:900;--d:.6s" cx="820" cy="810" rx="190" ry="140"/>
+  <circle class="a draw" data-at="6.3" style="--len:400;--d:.4s" cx="540" cy="1290" r="62"/>
+  <path class="a draw" data-at="6.6" style="--len:200;--d:.3s" d="M510 1300 q30 30 60 0"/><path class="a draw" data-at="6.6" style="--len:40;--d:.1s" d="M518 1270 l2 0 M560 1270 l2 0"/>
+  <path class="a draw" data-at="6.8" style="--len:900;--d:.6s" d="M540 1352 L540 1540 M540 1410 L450 1360 M540 1410 L630 1360 M540 1540 L480 1660 M540 1540 L600 1660"/>
+ </svg>
+ <div class="hw a fade" data-at="7.0" style="left:650px;top:1250px;font-size:70px">ИП доволен</div>
+</div>
+
+<!-- 3. A: документ -->
+<div class="sc" id="A" data-seg="2">
+ <div class="cap a up" data-at="0">Законопроект<br><u>№ 617-9</u></div>
+ <div class="doc a up" data-at="0.8"><div class="zoomslow a" data-at="0.8">
+  <h4>Пониженные ставки УСН с 2027 года</h4>
+  <span class="gr">Субъекты РФ вправе устанавливать пониженные налоговые ставки только для налогоплательщиков, осуществляющих деятельность в сферах:</span><br>
+  <span class="mk a hlx" data-at="5.0">производство</span> · <span class="mk a hlx" data-at="6.0">сельское хозяйство</span> · <span class="mk a hlx" data-at="7.2">НКО</span><br><br>
+  <span class="gr">Для иных видов деятельности применяется ставка 6 процентов…</span></div></div>
+ <div class="stamp a slam" data-at="2.7" data-sfx="stamp">ПРОЕКТ<small>2-Е ЧТЕНИЕ · 19.11</small></div>
+</div>
+
+<!-- 4. E: переписка -->
+<div class="sc" id="E" data-seg="3">
+ <div class="top"><div class="av">§</div><div class="who"><b>Закон</b><span>в сети</span></div></div>
+ <div class="chat">
+  <div class="m me a pop" data-at="0.1" data-sfx="pop">а магазины? кафе? гостиницы?<small>09:42 ✓✓</small></div>
+  <div class="m a pop" data-at="2.3" data-sfx="pop" style="transform-origin:left bottom">им — <b>6%</b> 🙂<small>09:42</small></div>
+  <div class="m a pop" data-at="3.9" data-sfx="pop" style="transform-origin:left bottom">без вариантов<small>09:42</small></div>
+  <div class="m me a pop" data-at="5.0" data-sfx="pop" style="font-size:90px;padding:14px 30px">😐</div>
+ </div>
+</div>
+
+<!-- 5. D2: маркер — расчёт -->
+<div class="sc D" id="D2" data-seg="4">
+ <div class="hw a write" data-at="0.1" style="left:80px;top:200px;--d:.8s">Считаем:</div>
+ <div class="hw a write" data-at="1.0" style="left:80px;top:360px;font-size:84px;--d:1.4s">магазин, доход 2 млн ₽</div>
+ <div class="hw a write" data-at="3.6" style="left:80px;top:540px;font-size:96px;--d:1.2s">было 1% = 20 000</div>
+ <div class="hw a write" data-at="6.0" style="left:80px;top:700px;font-size:96px;color:#E8452C;--d:1.2s">станет 6% = 120 000</div>
+ <div class="hw a write" data-at="8.2" style="left:180px;top:900px;font-size:124px;--d:1.2s">−100 000 ₽</div>
+ <svg class="ink" viewBox="0 0 1080 1920">
+  <path class="a draw" data-at="5.5" style="--len:900;--d:.4s" d="M80 680 L1000 680"/>
+  <ellipse class="a draw red" data-at="9.4" style="--len:1500;--d:.7s" cx="490" cy="960" rx="380" ry="120"/>
+  <g transform="translate(0,-60)"><!-- кофе -->
+  <path class="a draw" data-at="10.6" style="--len:800;--d:.5s" d="M200 1260 L230 1460 L360 1460 L390 1260 Z M390 1300 q60 10 0 90"/>
+  <path class="a draw blue" data-at="10.6" style="--len:200;--d:.4s" d="M260 1220 q-20 -30 0 -60 M320 1220 q-20 -30 0 -60"/>
+  <path class="a draw red" data-at="11.3" style="--len:600;--d:.3s" d="M160 1200 L440 1500 M440 1200 L160 1500"/>
+  <!-- пальма -->
+  <path class="a draw" data-at="12.3" style="--len:900;--d:.6s" d="M760 1560 C770 1450 780 1330 760 1220 M760 1220 C700 1180 640 1200 600 1250 M760 1220 C820 1170 890 1190 930 1240 M760 1220 C740 1150 690 1120 640 1130 M760 1220 C800 1150 860 1140 900 1160"/>
+  <path class="a draw blue" data-at="12.6" style="--len:700;--d:.4s" d="M560 1580 q80 -30 160 0 q80 30 160 0 q60 -20 120 0"/></g>
+ </svg>
+ <div class="hw a fade" data-at="10.8" style="left:150px;top:1420px;font-size:76px">не кофе</div>
+ <div class="hw a fade" data-at="12.8" style="left:650px;top:1545px;font-size:72px;color:#E8452C">а отпуск</div>
+</div>
+
+<!-- 6. B: вырезки / проверка слуха -->
+<div class="sc" id="B" data-seg="5">
+ <div class="clip a left" data-at="0.1" style="left:60px;right:90px;top:190px;--r:-2deg" data-sfx="paper"><small>Говорят в чатах</small>«Льготы по УСН отменят всем»</div>
+ <div class="tape" style="left:80px;top:160px;transform:rotate(-8deg)"></div>
+ <div class="stamp a slam" data-at="2.0" data-sfx="stamp" style="left:300px;top:470px">НЕПРАВДА</div>
+ <div class="clip ok a up" data-at="3.0" style="left:110px;right:60px;top:830px;--r:2deg" data-sfx="paper"><small>По законопроекту</small>Производство, сельхоз и НКО ставку сохранят</div>
+ <div class="tape" style="right:90px;top:800px;transform:rotate(9deg)"></div>
+ <div class="clip a up" data-at="6.6" style="left:70px;right:120px;top:1230px;--r:-1.5deg;font-size:56px" data-sfx="paper"><small>Минфин</small>Список пересмотрят в I квартале 2027</div>
+</div>
+
+<!-- 7. C: щит — что делать -->
+<div class="sc" id="C" data-seg="6">
+ <div class="cap a pop" data-at="0">Что делать?</div>
+ <svg width="600" height="700" viewBox="0 0 380 470" class="a pop" data-at="0.2">
+  <ellipse cx="190" cy="452" rx="120" ry="14" fill="rgba(15,27,45,.18)"/>
+  <rect x="140" y="370" width="16" height="70" rx="8" fill="#0F1B2D"/><rect x="224" y="370" width="16" height="70" rx="8" fill="#0F1B2D"/>
+  <rect x="122" y="430" width="44" height="18" rx="9" fill="#0F1B2D"/><rect x="214" y="430" width="44" height="18" rx="9" fill="#0F1B2D"/>
+  <path d="M190 20 L330 70 V200 C330 300 260 360 190 395 C120 360 50 300 50 200 V70 Z" fill="#0F1B2D"/>
+  <path d="M190 48 L304 88 V200 C304 285 248 335 190 365 C132 335 76 285 76 200 V88 Z" fill="#E8452C"/>
+  <ellipse cx="148" cy="185" rx="30" ry="34" fill="#fff"/><ellipse cx="232" cy="185" rx="30" ry="34" fill="#fff"/>
+  <circle cx="152" cy="192" r="14" fill="#0F1B2D"/><circle cx="228" cy="192" r="14" fill="#0F1B2D"/>
+  <path d="M112 140 L178 132" stroke="#0F1B2D" stroke-width="12" stroke-linecap="round"/><path d="M268 140 L202 132" stroke="#0F1B2D" stroke-width="12" stroke-linecap="round"/>
+  <path d="M150 270 Q190 300 230 270" stroke="#0F1B2D" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M330 170 C370 150 375 110 360 80" stroke="#0F1B2D" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <circle cx="358" cy="72" r="14" fill="#0F1B2D"/>
+ </svg>
+ <div class="li a up" data-at="1.1" style="top:1080px"><i>1</i>Проверь свой ОКВЭД</div>
+ <div class="li a up" data-at="3.4" style="top:1260px"><i>2</i>Посчитай налог на&nbsp;2027 заранее</div>
+</div>
+
+<!-- 8. D3: маркер — концовка -->
+<div class="sc D" id="D3" data-seg="7">
+ <div class="hw a write" data-at="0.1" style="left:80px;top:230px;font-size:100px;--d:1.2s">Полный разбор</div>
+ <div class="hw a write" data-at="1.3" style="left:80px;top:370px;font-size:100px;--d:1.2s">с источниками:</div>
+ <div class="hw a write" data-at="2.3" style="left:110px;top:600px;font-size:104px;color:#E8452C;--d:1.2s">t.me/yur_immunitet</div>
+ <svg class="ink" viewBox="0 0 1080 1920">
+  <path class="a draw red" data-at="3.4" style="--len:1100;--d:.5s" d="M100 740 C400 770 700 760 1000 735"/>
+  <path class="a draw" data-at="3.9" style="--len:600;--d:.5s" d="M540 860 L540 1060 M490 1010 L540 1065 L590 1010"/>
+  <path class="a draw red" data-at="5.6" style="--len:700;--d:.6s" d="M540 1560 C430 1470 400 1380 470 1350 C510 1335 535 1365 540 1390 C545 1365 570 1335 610 1350 C680 1380 650 1470 540 1560 Z"/>
+ </svg>
+ <div class="hw a write" data-at="4.0" style="left:110px;top:1100px;font-size:82px;--d:1.3s">отправь знакомому ИП —</div>
+ <div class="hw a write" data-at="5.4" style="left:110px;top:1220px;font-size:82px;--d:1.0s">пусть порадуется 🙃</div>
+</div>
+</div>
+
+<script>
+const TL = __TIMELINE__;
+// субтитры: показываемый текст по сегментам (кусками)
+const SUBS = [
+ ["Платишь <b>1%</b> налога?","С 2027-го может стать <b>6%</b>","В <b>шесть раз</b> больше!"],
+ ["Объясняю на пальцах","Сейчас регионы сами снижают ставку УСН","Вместо 6% — хоть <b>1%</b>"],
+ ["Но законопроект <b>№ 617-9</b>","уже прошёл <b>второе чтение</b>","Пониженную ставку оставят только","<b>производству, сельхозу и НКО</b>"],
+ ["А магазины, кафе и гостиницы?","А им — <b>6%</b>","Без вариантов"],
+ ["Считаем","Магазин с доходом 2 млн в год","Было <b>20 000</b> налога","Станет <b>120 000</b>","<b>100 000</b> разницы","Это уже не кофе","Это <b>отпуск</b>"],
+ ["Пишут, что скидку отменят всем?","<b>Неправда</b>","Производству и НКО её оставят","А Минфин обещал пересмотреть список","в начале 2027-го"],
+ ["Что делать?","Проверь свой <b>ОКВЭД</b>","и посчитай налог на 2027-й <b>заранее</b>"],
+ ["Полный разбор с источниками —","в нашем <b>Telegram</b>","Отправь знакомому предпринимателю","Пусть тоже <b>порадуется</b>"]
+];
+const total = TL[TL.length-1].start + TL[TL.length-1].dur;
+const scenes=[...document.querySelectorAll('.sc')];
+scenes.forEach(sc=>{const seg=TL[+sc.dataset.seg];sc._s=seg.start;sc._e=seg.start+seg.dur;
+  sc.querySelectorAll('[data-at]').forEach(el=>{el.style.animationDelay=(seg.start+parseFloat(el.dataset.at))+'s'});});
+// субтитры: распределяем по длине текста внутри сегмента
+const subT=[];TL.forEach((seg,i)=>{const parts=SUBS[i];const L=parts.reduce((a,p)=>a+p.replace(/<[^>]+>/g,'').length,0);let t=seg.start;const usable=seg.dur-0.3;
+  parts.forEach(p=>{const d=usable*p.replace(/<[^>]+>/g,'').length/L;subT.push({s:t,e:t+d,h:p});t+=d;});});
+window.SFX=[...document.querySelectorAll('[data-sfx]')].map(el=>({t:parseFloat(el.style.animationDelay),k:el.dataset.sfx}));
+TL.slice(1).forEach(s=>SFX.push({t:s.start-0.05,k:'whoosh'}));
+window.TOTAL=total;
+window.render=function(t){
+  document.getElementById('logo').style.display=(t>=document.getElementById('E')._s&&t<document.getElementById('E')._e)?'none':'block';
+  scenes.forEach(sc=>{sc.style.display=(t>=sc._s&&t<sc._e)||(sc===scenes[scenes.length-1]&&t>=sc._s)?'block':'none'});
+  document.getAnimations().forEach(a=>{a.pause();a.currentTime=t*1000});
+  document.querySelector('#prog i').style.width=(100*t/total)+'%';
+  const cur=subT.find(x=>t>=x.s&&t<x.e);document.getElementById('sub').innerHTML=cur?'<span>'+cur.h+'</span>':'';
+  // лёгкая тряска кадра в момент удара штампа
+  const hit=SFX.find(x=>(x.k==='stamp'||x.k==='thud')&&t>=x.t+0.33&&t<x.t+0.6);
+  document.getElementById('v').style.transform=hit?`translate(${Math.sin(t*90)*10}px,${Math.cos(t*70)*8}px)`:'none';
+};
+</script>
+</body></html>
