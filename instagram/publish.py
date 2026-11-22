@@ -29,7 +29,7 @@ import requests
 HOST = os.environ.get("IG_HOST", "graph.facebook.com")
 API = f"https://{HOST}/v22.0"
 # ID аккаунта Instagram (число из кабинета Meta). Для graph.instagram.com можно не задавать.
-IG_USER_ID = os.environ.get("IG_USER_ID", "")
+IG_USER_ID = os.environ.get("IG_USER_ID", "17841478025200353")  # @yur.immunitet
 REPO = "niyamelirzayev-boop/yur-immunitet-media"
 ROOT = Path(__file__).resolve().parent.parent
 JPG_DIR = ROOT / "instagram" / "jpg"
