@@ -24,7 +24,12 @@ from pathlib import Path
 
 import requests
 
-API = "https://graph.instagram.com/v22.0"
+# Токен «Unified login» (системный пользователь, бессрочный) работает через graph.facebook.com,
+# токен «Instagram Login» — через graph.instagram.com. Хост задаётся IG_HOST.
+HOST = os.environ.get("IG_HOST", "graph.facebook.com")
+API = f"https://{HOST}/v22.0"
+# ID аккаунта Instagram (число из кабинета Meta). Для graph.instagram.com можно не задавать.
+IG_USER_ID = os.environ.get("IG_USER_ID", "")
 REPO = "niyamelirzayev-boop/yur-immunitet-media"
 ROOT = Path(__file__).resolve().parent.parent
 JPG_DIR = ROOT / "instagram" / "jpg"
@@ -47,7 +52,13 @@ def api(method: str, path: str, **params):
 
 
 def me() -> dict:
-    return api("GET", "me", fields="user_id,username,account_type")
+    if IG_USER_ID:
+        info = api("GET", IG_USER_ID, fields="username,name")
+        info["user_id"] = IG_USER_ID
+        return info
+    if HOST == "graph.instagram.com":
+        return api("GET", "me", fields="user_id,username,account_type")
+    sys.exit("Задайте IG_USER_ID — ID аккаунта Instagram из кабинета Meta (API setup with Unified login).")
 
 
 def slides(folder: Path) -> list[Path]:
@@ -59,7 +70,7 @@ def slides(folder: Path) -> list[Path]:
 
 def cmd_check(_):
     info = me()
-    print(f"Аккаунт: @{info.get('username')} (id {info.get('user_id')}, тип {info.get('account_type')})")
+    print(f"Аккаунт: @{info.get('username')} (id {info.get('user_id')}), API: {HOST}")
     lim = api("GET", f"{info['user_id']}/content_publishing_limit", fields="quota_usage,config")
     d = (lim.get("data") or [{}])[0]
     total = d.get("config", {}).get("quota_total", "?")
